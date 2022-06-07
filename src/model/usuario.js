@@ -1,4 +1,4 @@
-import Repository from '../components/sistema/Repository';
+import Repository from '../components/sistema/repository';
 const repository = new Repository();
 
 class Usuario {
