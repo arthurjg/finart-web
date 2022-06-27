@@ -1,24 +1,14 @@
-import Repository from '../components/sistema/repository';
-const repository = new Repository();
 
 class Usuario {
 	
-	constructor() {
-		this.nome = null;
+	constructor(nome, email) {
+		this.nome = nome;				
+		this.email = email;	
 		this.dataNascimento = null;
-		this.celular = null;
-		this.email = null;
+		this.celular = null;		
 		this.idioma = null;
 		this.senha = null;
-	}	
-
-	static obter(sucesso,falha) {
-		repository.obter('usuario-logado', json => {
-			let usuario = new Usuario();
-			usuario.nome = json.nome;
-			sucesso(usuario);
-		}, falha);
-	}		
+	}			
 
 }
 export default Usuario;

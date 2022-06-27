@@ -1,12 +1,8 @@
-class Repository {
-	
-	constructor() {		
-	}
+class Repository {	
 
-	salvar(item, json,callback) {
+	salvar(item, json) {
 		let data = JSON.stringify(json);
-		window.localStorage.setItem(item, data);
-		callback();
+		window.localStorage.setItem(item, data);		
 	}
 
 	obter(item, sucesso, falha) {

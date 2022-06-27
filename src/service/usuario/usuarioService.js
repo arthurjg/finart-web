@@ -1,9 +1,6 @@
 import ApiClient from '../apiclient';
 
-class UsuarioService {
-	
-	constructor() {		
-	}
+class UsuarioService {	
 
 	static salvar(usuario) {
 		ApiClient.baseClient().post('/usuarios/registro', usuario);

@@ -1,20 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { BrowserRouter, Link, Routes, Route } from 'react-router-dom';
 import './index.css';
 import './pure-min.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import CadastroUsuario from './components/usuarios/cadastro';
+import CadastroUsuario from './pages/usuarios/cadastro';
+import Dashboard from './pages/home/dashboard';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <div>
-        <Route exact path="/" component={App} />    
-        <Route exact path="/usuario/registro" component={CadastroUsuario} />  
-      </div>
+      <Routes>
+        <Route path="/" element={<App/>} />    
+        <Route path="/usuario/registro" element={<CadastroUsuario/>} />  
+        <Route path="/principal" element={<Dashboard/>} />
+      </Routes>
     </BrowserRouter>
   </React.StrictMode>
 );

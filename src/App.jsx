@@ -1,13 +1,13 @@
 import React from 'react';
-import Login from './components/sistema/login';
-import Usuario from './model/usuario';
+import Login from './pages/login';
+import SessionService from './service/sistema/sessionService';
 import './App.css';
 
 class App extends React.Component {
   
   constructor() {
     super();
-    Usuario.obter(usuario => {
+    SessionService.obter(usuario => {
       this.state = {
         usuario: usuario
       };
@@ -19,10 +19,8 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.renderizarLogin()}              
-      </div>
+    return (     
+      {renderizarLogin()}
     );
   }
 
