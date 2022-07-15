@@ -12,16 +12,13 @@ class LoginService {
 		
 		ApiClient.baseClient()
 			.post('/autenticacao', param)
-			.then((response) => {
-				console.log("deu certo!!!");
-				console.log(response.data);	
-				let data = jwtDecode(response.data.access_token);
-				console.log(data);
+			.then((response) => {						
+				let data = jwtDecode(response.data.access_token);				
 				let usuario = new Usuario(data.nome, data.email);			
 				callback(usuario);
 			})
-			.catch((erro) => {
-				console.log("deu errado!!!");
+			.catch((erro) => {				
+				alert("Usuario ou senha incorretos. Nem me pergunte qual deles.");
 			});
 	}	
 

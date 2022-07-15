@@ -1,6 +1,7 @@
-import React from 'react'
-import Usuario from '../../../model/usuario'
-import UsuarioService from '../../../service/usuario/usuarioService'
+import React from 'react';
+import Usuario from '../../../model/usuario';
+import UsuarioService from '../../../service/usuario/usuarioService';
+import PrincipalLayout from '../../../components/layouts/principal';
 
 class CadastroUsuario extends React.Component {
 
@@ -31,6 +32,7 @@ class CadastroUsuario extends React.Component {
 
 	renderizarCadastro() {
 		return (			
+			<PrincipalLayout>
 			<form className="pure-form pure-form-aligned">
     			<fieldset>
         			<div className="pure-control-group">
@@ -69,7 +71,8 @@ class CadastroUsuario extends React.Component {
 						}}>Salvar</button>
         			</div>
     			</fieldset>
-			</form>			
+			</form>	
+			</PrincipalLayout>		
 		)
 	}	
 
@@ -87,10 +90,14 @@ class CadastroUsuario extends React.Component {
 		UsuarioService.salvar(this.state.usuario);
 	}
 
-	confirmacaoSenha(event) {
-		let usuario = this.state.usuario;
-		let confirmacao = event.target.value;		
-		this.state.validacao.senha = confirmacao;
+	confirmacaoSenha(event) {		
+		let confirmacao = event.target.value;			
+		this.setState({
+			usuario: this.state.usuario,
+			validacao : {
+				senha : confirmacao
+			}
+		});
 	}
 
 	salvarUsuario(usuario) {

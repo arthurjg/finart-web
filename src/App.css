@@ -1,3 +1,63 @@
+body, td, th {  
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 12px;  
+}
+
+th {
+  background: url('./imagens/fundo_claro.png'); 
+  min-height: 25px;
+  padding: 3px;
+}
+
+img {
+  border:0px;
+}
+
+#logotipo {
+  text-align: right;
+  float: right;
+}
+
+#container {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  min-height: 100%;
+  overflow: auto;
+}
+  
+#titulo {
+  float: left;
+  font-size: 25pt;
+  font-variant: small-caps;
+  font-weight: bold;
+}
+
+#barra_menu {
+  background: url('./components/barra-menu/img/fundo_barra_menu.png') repeat-x; 
+  min-height: 25px;
+  padding: 3px;
+  clear:both;
+}
+
+#corpo {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  min-height: 300px;  
+}
+
+#rodape {
+  background: url('./components/rodape/img/fundo_barra_rodape.png') repeat-x;
+  height: 100px;
+  width: 100%;
+  margin: 5px 5px 10px 5px;
+  padding: 10px;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  disply: block;
+}
+
 .App {
   text-align: center;
 }
@@ -36,3 +96,4 @@
     transform: rotate(360deg);
   }
 }
+

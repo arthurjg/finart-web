@@ -1,20 +1,30 @@
 import React from 'react';
+import InternoLayout from '../../components/layouts/interno';
+import SessionService from '../../service/sistema/sessionService';
 
 class Dashboard extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			login: null,
-			senha: null			
-		}
+		SessionService.obter((usuario) =>{
+			this.state = {
+				usuario: usuario,				
+			}
+		}, (usuario) =>{
+			this.state = {
+				usuario: null,				
+			}
+		});
+		
 	}
 
 	render() {
 		return (
-			<div className="center">	
-				<p> `Seja bem-vindo usario`</p>				
-			</div>
+			<InternoLayout>
+				<div className="center">	
+					<p> Seja bem-vindo {this.state.usuario.nome}</p>				
+				</div>
+			</InternoLayout>
 		);
 	}
 }
