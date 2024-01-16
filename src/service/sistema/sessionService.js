@@ -4,14 +4,13 @@ const repository = new Repository();
 
 class SessionService {	
 
-	static obter(sucesso, falha) {
+	static obterUsuario(sucesso, falha) {
 		repository.obter('usuario-logado', json => {
 			const now = new Date();
 			const thirdyMinutesAgo = now.getMilliseconds() - (1000 * 60 * 30);
 			const horaAcessoSessao = new Date(json.horaAcesso);
 			if(horaAcessoSessao.getMilliseconds() > thirdyMinutesAgo){
-				let usuario = new Usuario();
-				usuario.nome = json.nome;
+				let usuario = json;
 				sucesso(usuario);
 			} else {
 				repository.removeItem(json);

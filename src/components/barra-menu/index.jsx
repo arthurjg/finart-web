@@ -8,7 +8,7 @@ export default function BarraMenu(props) {
                     <a href="/pricipal" className="pure-menu-link">Inicio</a>
                 </li>
                 <li className="pure-menu-item">
-                    <a href="/acoes" className="pure-menu-link">Ações</a>
+                    <a href="/investimentos" className="pure-menu-link">Investimentos</a>
                 </li>
                 <li className="pure-menu-item pure-menu-disabled">
                     <a href="#" className="pure-menu-link">Area do Usuario</a>

@@ -6,7 +6,7 @@ class Dashboard extends React.Component {
 
 	constructor(props) {
 		super(props);
-		SessionService.obter((usuario) =>{
+		SessionService.obterUsuario((usuario) =>{
 			this.state = {
 				usuario: usuario,				
 			}

@@ -3,11 +3,12 @@ body, td, th {
   font-size: 12px;  
 }
 
+/* TODO servia p q?
 th {
   background: url('./imagens/fundo_claro.png'); 
   min-height: 25px;
   padding: 3px;
-}
+}*/
 
 img {
   border:0px;
