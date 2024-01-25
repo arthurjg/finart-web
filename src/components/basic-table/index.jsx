@@ -18,15 +18,16 @@ export default function BasicTable(props) {
     return (<h3> Sem informações </h3>)
   }
 
-  for(var index = 0; index < rows.length; index++){
+  for(var index = 1; index < rows.length; index++){
     rows[index].id = index;
+    console.log(rows[index]);
   }
 
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow key="table-header-01">
+          <TableRow key="1">
             {headers.map((header) => (
               <TableCell>{header}</TableCell>
             ))}            
