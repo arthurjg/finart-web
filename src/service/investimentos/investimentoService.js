@@ -15,7 +15,7 @@ class InvestimentoService {
 				let data = response.data;				
 				let investimentos = new Array();
 				data.map( (inv) => {
-					investimentos.push(new Investimento(inv.nome, inv.tipo, inv.natureza))
+					investimentos.push(new Investimento(inv.id, inv.nome, inv.tipo, inv.natureza))
 				})						
 				
 				callback(investimentos);
@@ -44,7 +44,22 @@ class InvestimentoService {
 				console.log("Erro ao salvar investimento: " + erro);				
 			})
 		
-	}	
+	}
+	
+	static remover(id, callback) {
+
+		const investimentoURL = '/investimentos/' + id
+
+		ApiClient.baseClient()
+			.delete(investimentoURL)
+			.then((response) => {
+				callback()
+				console.log("Investimento removido ");
+			})
+			.catch((erro) => {				
+				console.log("Erro ao remover investimento: " + erro);				
+			})
+	}
 
 	
 

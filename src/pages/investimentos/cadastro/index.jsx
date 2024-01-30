@@ -19,6 +19,11 @@ export default function CadastroInvestimentos() {
 	let [novoNome, setNovoNome] = useState('');
 	let [novoTipo, setNovoTipo] = useState('TD'); 
 
+	const acoes = [{
+		label: 'Remover',
+		action: removerHandler
+	}]
+
 	useEffect(() => {
 		listar()
 		InvestimentoTipoService.listar((tipos) => {			
@@ -35,12 +40,21 @@ export default function CadastroInvestimentos() {
 	function sucessoSalvar(event) {
 		listar()
 		renderSuccessToast('Investimento criado com sucesso!')
-	}	
+	}
+	
+	function sucessoRemover(event) {
+		listar()
+		renderSuccessToast('Investimento removido com sucesso.')
+	}
 
 	function salvar(event) {
 		event.preventDefault();		
 		
-		InvestimentoService.salvar(new Investimento(novoNome, novoTipo, null), sucessoSalvar)		
+		InvestimentoService.salvar(new Investimento(null, novoNome, novoTipo, null), sucessoSalvar)		
+	}
+
+	function removerHandler(id) {
+		InvestimentoService.remover(id, sucessoRemover)
 	}
 
 	function setNovoNomeHandler(e) {		
@@ -76,23 +90,9 @@ export default function CadastroInvestimentos() {
     				</fieldset>
 				</form>				
 				<hr/>				
-    			<BasicTable headers={columns} rows={rows} />
+    			<BasicTable headers={columns} rows={rows} acoes={acoes} />
 				<Toast />
     		</InternoLayout>
-  	)
-
-		/*if(rows && rows.lenght > 0) {
-  			return (
-    			<InternoLayout>
-      				<BasicTable headers={columns} rows={rows} />
-    			</InternoLayout>
-  			)
-		} else {
- 			return (
- 				<InternoLayout>
-    				<h3> Você ainda não tem investimentos, tá esperando o que pra começar? </h3>
-    			</InternoLayout>      
-  			)
-		}*/
+  	)		
 	
 }
