@@ -37,7 +37,7 @@ export default function BasicTable(props) {
               <TableCell>
               {acoes.map((acao) => (
                 <button type="submit" className="pure-button pure-button-primary"
-            					onClick={(e) => acao.action(row.id)}>{acao.label}</button>
+            					onClick={(e) => acao.action(row)}>{acao.label}</button>
               ))}
               </TableCell>          
               

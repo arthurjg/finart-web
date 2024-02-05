@@ -16,18 +16,27 @@ export default function CadastroInvestimentos() {
 	let [rows, setRows] = useState([]);
 	let [tipos, setTipos] = useState([]);  
 
+	let [novoId, setNovoId] = useState();
 	let [novoNome, setNovoNome] = useState('');
 	let [novoTipo, setNovoTipo] = useState('TD'); 
 
 	const acoes = [{
 		label: 'Remover',
 		action: removerHandler
+	},
+	{
+		label: 'Editar',
+		action: editarHandler
 	}]
 
 	useEffect(() => {
 		listar()
 		InvestimentoTipoService.listar((tipos) => {			
-			setTipos(tipos)			
+			setTipos(tipos)	
+			tipos.forEach( tipo => {
+				console.log('tipo: ' + tipo.nome + ', ' + tipo.tipo)	
+			});
+				
 		})		
 	}, [])	
 
@@ -37,32 +46,60 @@ export default function CadastroInvestimentos() {
 		})
 	}
 
-	function sucessoSalvar(event) {
+	function reinicializarForm(event) {
 		listar()
+		setNovoId(null)
+		setNovoNome('')
+		setNovoTipo('TD')
+	}
+
+	function sucessoSalvar(event) {		
 		renderSuccessToast('Investimento criado com sucesso!')
+		reinicializarForm()
+	}
+
+	function sucessoAtualizar(event) {		
+		renderSuccessToast('Investimento atualizado com sucesso!')
+		reinicializarForm()
 	}
 	
-	function sucessoRemover(event) {
-		listar()
+	function sucessoRemover(event) {		
 		renderSuccessToast('Investimento removido com sucesso.')
+		reinicializarForm()
 	}
 
 	function salvar(event) {
 		event.preventDefault();		
 		
-		InvestimentoService.salvar(new Investimento(null, novoNome, novoTipo, null), sucessoSalvar)		
+		if(!novoId){
+			InvestimentoService.salvar(new Investimento(null, novoNome, novoTipo, null), sucessoSalvar)
+		} else {
+			InvestimentoService.atualizar(new Investimento(novoId, novoNome, novoTipo, null), sucessoAtualizar)
+		}
+				
 	}
 
-	function removerHandler(id) {
-		InvestimentoService.remover(id, sucessoRemover)
+	function removerHandler(investimento) {
+		InvestimentoService.remover(investimento.id, sucessoRemover)
+	}
+
+	function editarHandler(investimento) {		
+
+		let tipoAchados = tipos.filter((tipo) => investimento.tipo == tipo.nome)
+		let tipoAchado = tipoAchados[0]		
+		const tipoId = tipoAchado.tipo		
+
+		setNovoId(investimento.id)
+		setNovoNome(investimento.nome)
+		setNovoTipo(tipoId)
 	}
 
 	function setNovoNomeHandler(e) {		
-		setNovoNome(e.target.value);
+		setNovoNome(e.target.value)
 	}
 
 	function setNovoTipoHandler(e) {		
-		setNovoTipo(e.target.value);
+		setNovoTipo(e.target.value)
 	}
 
 	return (
@@ -73,7 +110,7 @@ export default function CadastroInvestimentos() {
 					<fieldset>
         				<div className="pure-control-group">
             				<label>Nome</label>
-            				<input type="text" onChange={(event) => setNovoNomeHandler(event)} />            
+            				<input type="text" value={novoNome} onChange={(event) => setNovoNomeHandler(event)} />            
         				</div>
 						<div className="pure-control-group">
 							<label>Tipo</label>

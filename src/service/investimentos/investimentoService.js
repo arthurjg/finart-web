@@ -42,8 +42,27 @@ class InvestimentoService {
 			})
 			.catch((erro) => {				
 				console.log("Erro ao salvar investimento: " + erro);				
+			})		
+	}
+
+	static atualizar(investimento, callback) {
+
+		const investimentoURL = '/investimentos/' + investimento.id
+
+		let investimentoDTO = {
+			nome: investimento.nome,
+			tipo: investimento.tipo
+		}
+
+		ApiClient.baseClient()
+			.put(investimentoURL, investimentoDTO)
+			.then((response) => {
+				callback()
+				console.log("Investimento atualizado ");
 			})
-		
+			.catch((erro) => {				
+				console.log("Erro ao salvar investimento: " + erro);				
+			})		
 	}
 	
 	static remover(id, callback) {
