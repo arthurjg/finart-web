@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
 
 import Button from '@mui/material/Button';
-import BasicTable from '../../../components/basic-table';
+import CollapsibleTable from '../../../components/collapsible-table';
 import Formulario from '../../../components/formulario';
 
 import InternoLayout from '../../../components/layouts/interno';
@@ -9,10 +9,12 @@ import Toast, { renderSuccessToast } from '../../../components/Toast';
 import InvestimentoService from '../../../service/investimentos/investimentoService';
 import InvestimentoTipoService from '../../../service/investimentos/investimentoTipoService';
 import Investimento from '../../../model/investimento';
+import MovimentosService from '../../../service/investimentos/movimentosService';
 
 export default function CadastroInvestimentos() {
 
-	let [columns, setColumns] = useState(['nome', 'tipo', 'natureza']);
+	const columns = ['nome', 'tipo', 'natureza'];
+	const movimentoColumns = ['data', 'tipo', 'valor'];
 	let [rows, setRows] = useState([]);
 	let [tipos, setTipos] = useState([]);  
 
@@ -29,14 +31,12 @@ export default function CadastroInvestimentos() {
 		action: editarHandler
 	}]
 
+	const subtitulo = 'Movimentações'
+
 	useEffect(() => {
 		listar()
 		InvestimentoTipoService.listar((tipos) => {			
-			setTipos(tipos)	
-			tipos.forEach( tipo => {
-				console.log('tipo: ' + tipo.nome + ', ' + tipo.tipo)	
-			});
-				
+			setTipos(tipos)				
 		})		
 	}, [])	
 
@@ -102,6 +102,10 @@ export default function CadastroInvestimentos() {
 		setNovoTipo(e.target.value)
 	}
 
+	function listarPorInvestimento(id, callback) {
+		MovimentosService.listarPorInvestimento(id, callback)
+	}
+
 	return (
     		<InternoLayout>
     			<h3> Seus Investimentos </h3>
@@ -126,8 +130,15 @@ export default function CadastroInvestimentos() {
         				</div>
     				</fieldset>
 				</form>				
-				<hr/>				
-    			<BasicTable headers={columns} rows={rows} acoes={acoes} />
+				<hr/>   			
+				<CollapsibleTable 
+					headers={columns} 
+					rows={rows} 
+					acoes={acoes} 
+					subtitulo={subtitulo}
+					detailsHeaders={movimentoColumns} 
+					getDetailsByRow={listarPorInvestimento} 
+				/>
 				<Toast />
     		</InternoLayout>
   	)		
