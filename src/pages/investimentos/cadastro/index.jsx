@@ -1,8 +1,6 @@
 import { React, useState, useEffect } from 'react';
 
-import Button from '@mui/material/Button';
 import CollapsibleTable from '../../../components/collapsible-table';
-import Formulario from '../../../components/formulario';
 
 import InternoLayout from '../../../components/layouts/interno';
 import Toast, { renderSuccessToast } from '../../../components/Toast';

@@ -12,8 +12,8 @@ class MovimentosService {
 			.get(movimentosURL)
 			.then((response) => {						
 				let data = response.data;				
-				let movimentos = new Array();
-				data.map( (mov) => {
+				let movimentos = [];
+				data.forEach( (mov) => {
 					movimentos.push(new Movimento(mov.id, mov.tipo, mov.data, mov.valor))
 				})						
 				

@@ -60,7 +60,7 @@ function Row(props) {
               <Typography variant="h6" gutterBottom component="div">
                 {subtitulo}
               </Typography>
-              <Table size="small" aria-label="purchases">
+              {details.length > 0 ? <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow key="1002">
                     {detailsHeaders.map((header) => (
@@ -77,7 +77,7 @@ function Row(props) {
                     </TableRow>
                   ))}
                 </TableBody>
-              </Table>
+              </Table> : <p> Sem informações </p> }
             </Box>
           </Collapse>
         </TableCell>
