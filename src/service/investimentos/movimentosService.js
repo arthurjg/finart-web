@@ -24,27 +24,29 @@ class MovimentosService {
 			});
 	}	
 
-	/*static salvar(investimento, callback) {
+	static salvar(idInvestimento, tipo, data, valor, callback) {
 
-		const investimentoURL = '/investimentos'
+		const movimentosURL = `/investimentos/${idInvestimento}/movimentos`		
 
-		let investimentoDTO = {
-			nome: investimento.nome,
-			tipo: investimento.tipo
-		}
+		let movimentacaoDTO = {
+			data: data,
+			tipo: tipo,
+			valor: valor
+		}		
 
 		ApiClient.baseClient()
-			.post(investimentoURL, investimentoDTO)
+			.post(movimentosURL, movimentacaoDTO)
 			.then((response) => {
-				callback()
-				console.log("Investimento salvo ");
+				callback()				
+				console.log("Movimentação salva ");
 			})
-			.catch((erro) => {				
-				console.log("Erro ao salvar investimento: " + erro);				
+			.catch((erro) => {		
+						
+				console.log("Erro ao salvar Movimentação: " + erro);				
 			})		
 	}
 
-	static atualizar(investimento, callback) {
+	/*static atualizar(investimento, callback) {
 
 		const investimentoURL = '/investimentos/' + investimento.id
 

@@ -12,18 +12,24 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import Botao from '../botao';
 
 function Row(props) {
   const { row } = props;
   const headers = props.headers;
-  const acoes = props.acoes;
+  const acoes = props.acoes;  
   const subtitulo = props.subtitulo;
-  let detailsHeaders = props.detailsHeaders;
+  let detailsHeaders = props.detailsHeaders;  
+  const addDetailsAction = (investimentoID) => {
+    setOpen(false)
+    props.addDetailsAction(investimentoID);
+  }
+  const addDetailsLabel = props.addDetailsLabel;
   const [open, setOpen] = useState(false);
   let [details, setDetails] = useState([]);  
 
   const getDetails = (open) => {
-
+    
     if(open) {
       props.getDetailsByRow(row.id, setDetails)
     }
@@ -60,6 +66,7 @@ function Row(props) {
               <Typography variant="h6" gutterBottom component="div">
                 {subtitulo}
               </Typography>
+              <Botao entityId={row.id} texto={addDetailsLabel} acao={addDetailsAction} />             
               {details.length > 0 ? <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow key="1002">
@@ -93,7 +100,9 @@ export default function CollapsibleTable(props) {
   let acoes = props.acoes;
   let subtitulo = props.subtitulo
   let detailsHeaders = props.detailsHeaders;
-  let getDetailsByRow = props.getDetailsByRow;  
+  let getDetailsByRow = props.getDetailsByRow;
+  let addDetailsLabel = props.addDetailsLabel;
+  let addDetailsAction = props.addDetailsAction;  
 
   return (
     rows.length > 0 ? <TableContainer component={Paper}>
@@ -116,7 +125,9 @@ export default function CollapsibleTable(props) {
               acoes={acoes} 
               subtitulo={subtitulo}
               detailsHeaders={detailsHeaders}
-              getDetailsByRow={getDetailsByRow} 
+              getDetailsByRow={getDetailsByRow}
+              addDetailsLabel={addDetailsLabel}
+					    addDetailsAction={addDetailsAction} 
             />              
           ))}
         </TableBody>
