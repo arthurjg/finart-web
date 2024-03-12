@@ -9,6 +9,9 @@ import InvestimentoTipoService from '../../../service/investimentos/investimento
 import Investimento from '../../../model/investimento';
 import MovimentosService from '../../../service/investimentos/movimentosService';
 
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+
 export default function CadastroInvestimentos() {
 
 	const columns = ['nome', 'tipo', 'natureza'];
@@ -24,14 +27,16 @@ export default function CadastroInvestimentos() {
 	let [editandoMovimentacao, setEditandoMovimentacao] = useState(false);
 	let [movimentacaoData, setMovimentacaoData] = useState(new Date());
 	let [movimentacaoTipo, setMovimentacaoTipo] = useState('C');
-	let [movimentacaoValor, setMovimentacaoValor] = useState();
+	let [movimentacaoValor, setMovimentacaoValor] = useState();	
 
 	const acoes = [{
-		label: 'Remover',
+		label: 'remover',
+		icon: faTrashCan,
 		action: removerHandler
 	},
 	{
-		label: 'Editar',
+		label: 'editar',
+		icon: faPenToSquare,
 		action: editarHandler
 	}]
 
@@ -48,6 +53,12 @@ export default function CadastroInvestimentos() {
 
 	const subtitulo = 'Movimentações'
 	const novaMovimentacaoLabel = 'Nova'
+
+	const movimentacaoActions = [{
+		label: 'Remover',
+		icon: faTrashCan,
+		action: removerMovimentacaoHandler
+	}]
 
 	useEffect(() => {
 		listar()
@@ -148,6 +159,14 @@ export default function CadastroInvestimentos() {
 		reinicializarFormMovimento()
 	}
 
+	function removerMovimentacaoHandler(investimento, movimentacao, detailCallback) {
+		MovimentosService.remover(investimento.id, movimentacao.id, sucessoRemoverMovimentacao, detailCallback)		
+	}
+
+	function sucessoRemoverMovimentacao(event) {		
+		renderSuccessToast('Movimentação removida com sucesso.')		
+	}
+
 	return (
     		<InternoLayout>
     			<h3> Seus Investimentos </h3>    			
@@ -217,7 +236,8 @@ export default function CadastroInvestimentos() {
 					detailsHeaders={movimentoColumns} 
 					getDetailsByRow={listarPorInvestimento}
 					addDetailsLabel={novaMovimentacaoLabel}
-					addDetailsAction={adicionarMovimentacaoHandler} 
+					addDetailsAction={adicionarMovimentacaoHandler}
+					detailsActions={movimentacaoActions} 
 				/>
 				<Toast />
     		</InternoLayout>

@@ -64,22 +64,23 @@ class MovimentosService {
 			.catch((erro) => {				
 				console.log("Erro ao salvar investimento: " + erro);				
 			})		
-	}
+	}*/
 	
-	static remover(id, callback) {
+	static remover(idInvestimento, idMovimentacao, callback, detailCallback) {
 
-		const investimentoURL = '/investimentos/' + id
+		const movimentosURL = `/investimentos/${idInvestimento}/movimentos/${idMovimentacao}`
 
 		ApiClient.baseClient()
-			.delete(investimentoURL)
+			.delete(movimentosURL)
 			.then((response) => {
 				callback()
-				console.log("Investimento removido ");
+				detailCallback(true)
+				console.log("Movimentação removida ");
 			})
 			.catch((erro) => {				
-				console.log("Erro ao remover investimento: " + erro);				
+				console.log("Erro ao remover Movimentação: " + erro);				
 			})
-	}*/
+	}
 
 	
 

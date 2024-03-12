@@ -13,6 +13,8 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Botao from '../botao';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 function Row(props) {
   const { row } = props;
@@ -25,6 +27,8 @@ function Row(props) {
     props.addDetailsAction(investimentoID);
   }
   const addDetailsLabel = props.addDetailsLabel;
+  const detailsActions = props.detailsActions;
+  
   const [open, setOpen] = useState(false);
   let [details, setDetails] = useState([]);  
 
@@ -54,9 +58,11 @@ function Row(props) {
         <TableCell>
           {acoes.map((acao) => (
             <button key={acao.label} type="submit" className="pure-button pure-button-primary"
-        				onClick={(e) => acao.action(row)}>{acao.label}
+        				onClick={(e) => acao.action(row)}>
+                  <FontAwesomeIcon icon={acao.icon} />                  
             </button>
           ))}
+          
         </TableCell>        
       </TableRow>
       <TableRow key="1001">
@@ -72,15 +78,24 @@ function Row(props) {
                   <TableRow key="1002">
                     {detailsHeaders.map((header) => (
                       <TableCell>{header}</TableCell>
-                    ))}                    
+                    ))}     
+                    <TableCell>Ações</TableCell>               
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {details.map((row) => (
-                    <TableRow key={row.id}>
+                  {details.map((detailRow) => (
+                    <TableRow key={detailRow.id}>
                       {detailsHeaders.map((header) => (
-                        <TableCell>{row[header]}</TableCell>
+                        <TableCell>{detailRow[header]}</TableCell>
                       ))}   
+                      <TableCell>
+                        {detailsActions.map((acao) => (
+                          <button key={acao.label} className="pure-button pure-button-primary"
+        				            onClick={(e) => acao.action(row, detailRow, getDetails)}>
+                              <FontAwesomeIcon icon={acao.icon} />
+                          </button>
+                        ))}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -103,6 +118,7 @@ export default function CollapsibleTable(props) {
   let getDetailsByRow = props.getDetailsByRow;
   let addDetailsLabel = props.addDetailsLabel;
   let addDetailsAction = props.addDetailsAction;  
+  let detailsActions = props.detailsActions;
 
   return (
     rows.length > 0 ? <TableContainer component={Paper}>
@@ -127,7 +143,8 @@ export default function CollapsibleTable(props) {
               detailsHeaders={detailsHeaders}
               getDetailsByRow={getDetailsByRow}
               addDetailsLabel={addDetailsLabel}
-					    addDetailsAction={addDetailsAction} 
+					    addDetailsAction={addDetailsAction}
+              detailsActions={detailsActions} 
             />              
           ))}
         </TableBody>
